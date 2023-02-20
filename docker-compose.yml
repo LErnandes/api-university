@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    container_name: docker-app-university
+    environment:
+      MONGOURI: mongodb://admin:password@mongo:27017
+      SECRETKEY: nOH1Tj7uvmKwlAZm13
+    restart: always
+    ports:
+      - 4000:4000
+    command: npm run start
+    env_file: .env
+
+  mongo:
+      image: mongo
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: password
+      ports:
+        - "27017:27017"
